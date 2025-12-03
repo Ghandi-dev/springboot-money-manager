@@ -8,7 +8,13 @@ public class MoneymanagerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MoneymanagerApplication.class, args);
+		System.out.println("=================================================================");
+		System.out.println("=================================================================");
+		System.out.println("=================================================================");
 		System.out.println("Money Manager Application Started Successfully!");
+		System.out.println("=================================================================");
+		System.out.println("=================================================================");
+		System.out.println("=================================================================");
 	}
 
 }

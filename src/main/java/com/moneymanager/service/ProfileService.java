@@ -52,4 +52,13 @@ public class ProfileService {
                 .updatedAt(profileEntity.getUpdatedAt())
                 .build();
     }
+
+    public boolean activateProfile(String activationToken) {
+        return profileRepository.findByActivationToken(activationToken)
+                .map(profile -> {
+                    profile.setIsActive(true);
+                    profileRepository.save(profile);
+                    return true;
+                }).orElse(false);
+    }
 }

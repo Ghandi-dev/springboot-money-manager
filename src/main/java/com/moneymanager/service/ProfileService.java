@@ -14,12 +14,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProfileService {
     private final ProfileRepository profileRepository;
+    private final EmailService emailService;
 
     public ProfileDTO registerProfile(ProfileDTO profileDTO) {
-        // Implementation for registering a profile
         ProfileEntity profileEntity = toEntity(profileDTO);
         profileEntity.setActivationToken(UUID.randomUUID().toString());
         profileEntity = profileRepository.save(profileEntity);
+
+        String activationLink = "http://localhost:8080/api/v1.0/activate?token=" + profileEntity.getActivationToken();
+        String subject = "Activate Your MoneyManager Account";
+        String body = "Click the following link to activate your account: " + activationLink;
+        emailService.sendEmail(profileEntity.getEmail(), subject, body);
+
         profileDTO = toDTO(profileEntity);
         return profileDTO;
     }
@@ -41,7 +47,6 @@ public class ProfileService {
                 .id(profileEntity.getId())
                 .fullName(profileEntity.getFullName())
                 .email(profileEntity.getEmail())
-                .password(profileEntity.getPassword())
                 .profileImageUrl(profileEntity.getProfileImageUrl())
                 .createdAt(profileEntity.getCreatedAt())
                 .updatedAt(profileEntity.getUpdatedAt())

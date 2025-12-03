@@ -28,6 +28,7 @@ public class ProfileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String fullName;
     @Column(unique = true)
     private String email;

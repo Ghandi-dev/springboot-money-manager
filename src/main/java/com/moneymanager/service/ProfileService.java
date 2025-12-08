@@ -15,7 +15,7 @@ import com.moneymanager.dto.AuthDTO;
 import com.moneymanager.dto.ProfileDTO;
 import com.moneymanager.entity.ProfileEntity;
 import com.moneymanager.repository.ProfileRepository;
-import com.moneymanager.util.JWTUtil;
+import com.moneymanager.util.JwtUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +26,7 @@ public class ProfileService {
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final JWTUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
     public ProfileDTO registerProfile(ProfileDTO profileDTO) {
         ProfileEntity profileEntity = toEntity(profileDTO);
@@ -102,7 +102,7 @@ public class ProfileService {
                     "token", token,
                     "user", getPublicProfile(authDTO.getEmail()));
         } catch (Exception e) {
-            throw new RuntimeException("Invalid email or password");
+            throw new RuntimeException("Invalid email or password" + e.getMessage());
         }
     }
 

@@ -51,9 +51,4 @@ public class ProfileController {
         }
     }
 
-    @GetMapping("/testing")
-    public String test() {
-        return "Testing endpoint is working!";
-    }
-
 }
